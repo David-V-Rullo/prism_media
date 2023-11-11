@@ -4,10 +4,11 @@ import SearchBar from "./components/SearchBar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full bg-slate-700">
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <div className="w-full bg-gradient-to-tr from-slate-900 via-slate-500 to-slate-300 h-20">
         <HeaderBar />
       </div>
+      <div className="p-6"></div>
       <div className="text-6xl font-bold text-center  text-white px-5">
         Find Your Perfect Advertisting Spot
       </div>
