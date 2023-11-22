@@ -13,9 +13,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   color,
 }) => {
   const value = "700";
-  const colorStyle = `bg-${color}-${value}`;
+  const colorStyle = { backgroundColor: color };
   return (
-    <div className={color ? `${colorStyle}` : `bg-slate-800`}>
+    <div style={colorStyle}>
       <button className={`${colorStyle}`}>{title}</button>
     </div>
   );
