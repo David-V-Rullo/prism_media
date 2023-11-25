@@ -1,11 +1,9 @@
 import BillboardCard from "./components/BillboardCard";
-import NavBar from "./components/NavBar";
 import SearchBar from "./components/SearchBar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <NavBar />
+    <main className="flex min-h-screen flex-col items-center p-2">
       <div className="p-6"></div>
       <div className="text-5xl font-bold text-center  text-white pt-5">
         Find Your Perfect Advertisting Spot
