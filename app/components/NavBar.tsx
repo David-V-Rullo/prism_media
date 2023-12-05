@@ -29,12 +29,12 @@ export default function NavBar() {
         </NavbarItem>
         <NavbarItem isActive>
           <Link href="/" aria-current="page">
-            Featured Locations
+            Placeholder Home Page
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
+          <Link color="foreground" href="/owners/">
+            Placeholder Owner Page
           </Link>
         </NavbarItem>
       </NavbarContent>

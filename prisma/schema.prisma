@@ -18,6 +18,7 @@ model User {
 
 model Billboard {
   id                     Int     @id @default(autoincrement())
+  billboardName          String
   market                 String
   vendor                 String
   mediaType              String

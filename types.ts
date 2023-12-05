@@ -1,4 +1,5 @@
 export interface BillboardFormData {
+  billboardName: string;
   market: string;
   vendor: string;
   mediaType: string;
