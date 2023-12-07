@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 const SearchBar = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -10,29 +10,41 @@ const SearchBar = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex items-center">
-        <input
-          className=" rounded-md w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none"
+      <div className="flex items-center justify-around gap-4 py-8">
+        <Input
           id="search"
           type="text"
           placeholder="Search..."
+          labelPlacement="outside"
+          variant="bordered"
+          radius="sm"
         />
-        <div className="p-4">
-          {/* <button
-            type="submit"
-            className="bg-blue-500 text-white rounded-full  hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center"
-          > */}
-          <Button
-            isIconOnly={true}
-            color="primary"
-            size="sm"
-            radius="sm"
-            aria-label="Execute your search"
-          >
-            <FaSearch />
-          </Button>
-          {/* </button> */}
-        </div>
+        <Input
+          id="location"
+          type="text"
+          placeholder="Location"
+          labelPlacement="outside"
+          variant="bordered"
+          radius="sm"
+        />
+        <Input
+          id="date"
+          type="date"
+          labelPlacement="outside"
+          placeholder="Date"
+          variant="bordered"
+          radius="sm"
+        />
+
+        <Button
+          isIconOnly={true}
+          color="primary"
+          size="sm"
+          radius="sm"
+          aria-label="Execute your search"
+        >
+          <FaSearch />
+        </Button>
       </div>
     </form>
   );

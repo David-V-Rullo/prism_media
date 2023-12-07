@@ -17,7 +17,7 @@ model User {
 }
 
 model Billboard {
-  id                     Int     @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   billboardName          String
   market                 String
   vendor                 String
@@ -30,20 +30,20 @@ model Billboard {
   size                   String
   pixels                 String
   illuminated            Boolean
-  weeklyEOIs             Int     @map("A18+ WEEKLY EOI'S")
-  fourWeekImp            Int     @map("4 week IMP")
+  weeklyEOIs             Int       @map("A18+ WEEKLY EOI'S")
+  fourWeekImp            Int       @map("4 week IMP")
   latitude               Float
   longitude              Float
   availableTiming        String?
-  fourWeekRateCard       Int     @map("4-Week Rate Card")
-  fourWeekNegotiatedCost Int     @map("4-Week Negotiated Cost")
-  installsIncluded       Int?    @map("# of Installs Included")
-  additionalInstallCost  Int?    @map("Cost per Additional Installations")
-  productionCost         Int?    @map("Production Cost (1x - if forced)")
+  fourWeekRateCard       Int       @map("4-Week Rate Card")
+  fourWeekNegotiatedCost Int       @map("4-Week Negotiated Cost")
+  installsIncluded       Int?      @map("# of Installs Included")
+  additionalInstallCost  Int?      @map("Cost per Additional Installations")
+  productionCost         Int?      @map("Production Cost (1x - if forced)")
   shippingAddress        String?
-  artworkDeadline        String?
+  artworkDeadline        DateTime?
   ownerId                Int
-  owner                  Owner   @relation(fields: [ownerId], references: [id])
+  owner                  Owner     @relation(fields: [ownerId], references: [id])
 
   @@index([ownerId])
 }
@@ -51,6 +51,6 @@ model Billboard {
 model Owner {
   id         Int         @id @default(autoincrement())
   name       String
-  email      String      @unique
+  email      String
   billboards Billboard[]
 }

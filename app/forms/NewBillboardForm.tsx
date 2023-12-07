@@ -1,6 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import { BillboardFormData } from "@/types";
 import { Button, Input } from "@nextui-org/react";
 import { createBillboard } from "../actions";
 import { useFormState } from "react-dom";
@@ -49,96 +47,87 @@ const NewBillboardForm: React.FC = () => {
   return (
     <form action={formAction} className="space-y-4">
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4 sm:flex-row md:gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Input
             label="Billboard Name"
             id="name"
             name="name"
             placeholder="Enter Billboard Name"
           />
-        </div>
-        <div>
+
           <Input
             label="Market"
             id="market"
             name="market"
             placeholder="Enter Market"
           />
+
+          <Input
+            label="Vendor"
+            id="vendor"
+            name="vendor"
+            placeholder="Enter Vendor"
+          />
+
+          {/* This might need to be a dropdown */}
+          <Input
+            label="Media Type"
+            id="mediaType"
+            name="mediaType"
+            placeholder="Should this be a dropdown?"
+          />
+
+          <Input
+            label="Unit Number"
+            id="unitNumber"
+            name="unitNumber"
+            placeholder="Enter Unit Number"
+          />
+
+          <Input
+            label="Tab ID"
+            id="tabId"
+            name="tabId"
+            placeholder="What the hell is a Tab ID?"
+          />
+
+          <Input
+            label="Number of Units"
+            id="numberOfUnits"
+            name="numberOfUnits"
+            placeholder="Enter Number of Units"
+          />
+
+          <Input
+            label="Description"
+            id="description"
+            name="description"
+            placeholder="Move this somewhere it can be a big text area"
+          />
+
+          <Input
+            label="Face"
+            id="face"
+            name="face"
+            placeholder="This can probably be a little box"
+          />
+
+          <Input
+            label="Size"
+            id="size"
+            name="size"
+            placeholder="This should be two  properly labeled input boxes with an 'x' inbetween for proper formatting."
+          />
+
+          <Input
+            label="Pixels"
+            id="pixels"
+            name="pixels"
+            placeholder="This should be a dropdown with accepted pixel counts, also surfaced to compare to client upload size"
+          />
         </div>
       </div>
-      <div>
-        <Input
-          label="Vendor"
-          id="vendor"
-          name="vendor"
-          placeholder="Enter Vendor"
-        />
-      </div>
-      <div>
-        {/* This might need to be a dropdown */}
-        <Input
-          label="Media Type"
-          id="mediaType"
-          name="mediaType"
-          placeholder="Should this be a dropdown?"
-        />
-      </div>
-      <div>
-        <Input
-          label="Unit Number"
-          id="unitNumber"
-          name="unitNumber"
-          placeholder="Enter Unit Number"
-        />
-      </div>
-      <div>
-        <Input
-          label="Tab ID"
-          id="tabId"
-          name="tabId"
-          placeholder="What the hell is a Tab ID?"
-        />
-      </div>
-      <div>
-        <Input
-          label="Number of Units"
-          id="numberOfUnits"
-          name="numberOfUnits"
-          placeholder="Enter Number of Units"
-        />
-      </div>
-      <div>
-        <Input
-          label="Description"
-          id="description"
-          name="description"
-          placeholder="Move this somewhere it can be a big text area"
-        />
-      </div>
-      <div>
-        <Input
-          label="Face"
-          id="face"
-          name="face"
-          placeholder="This can probably be a little box"
-        />
-      </div>
-      <div>
-        <Input
-          label="Size"
-          id="size"
-          name="size"
-          placeholder="This should be two  properly labeled input boxes with an 'x' inbetween for proper formatting."
-        />
-      </div>
-      <div>
-        <Input
-          label="Pixels"
-          id="pixels"
-          name="pixels"
-          placeholder="This should be a dropdown with accepted pixel counts, also surfaced to compare to client upload size"
-        />
-      </div>
+      {/* </div>
       <div>
         <label
           htmlFor="illuminated"
@@ -320,7 +309,7 @@ const NewBillboardForm: React.FC = () => {
           id="artworkDeadline"
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         />
-      </div>
+      </div> */}
 
       {/* Submit Button */}
       <div>
