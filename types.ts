@@ -1,4 +1,4 @@
-export interface BillboardFormData {
+export type BillboardFormData = {
   billboardName: string;
   market: string;
   vendor: string;
@@ -24,4 +24,4 @@ export interface BillboardFormData {
   shippingAddress?: string;
   artworkDeadline?: string;
   ownerId: number;
-}
+};

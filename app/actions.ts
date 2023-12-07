@@ -7,14 +7,6 @@ type OwnerData = {
   name: string;
   email: string;
 };
-
-const objectFromFormData = (formData: FormData): Record<string, string> => {
-  const data: Record<string, string> = {};
-  formData.forEach((value, key) => {
-    data[key] = value;
-  });
-  return data;
-};
 export async function createBillboard(previousState: any, formData: FormData) {
   try {
     const billboard = await prisma.billboard.create({
@@ -30,6 +22,15 @@ export async function createBillboard(previousState: any, formData: FormData) {
 
 export async function createOwner(previousState: any, formData: FormData) {
   //   const formDataEntries = formData.entries();
+  const objectFromFormData = (formData: FormData) => {
+    const data: Partial<OwnerData> = {};
+    formData.forEach((value, key) => {
+      if (key === "name" || key === "email") {
+        data[key as keyof OwnerData] = value as string;
+      }
+    });
+    return data;
+  };
 
   const formDataObject = objectFromFormData(formData);
   console.log("formDataEntries", formDataObject);
