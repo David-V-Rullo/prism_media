@@ -1,6 +1,7 @@
 import React from "react";
 import NewBillboardForm from "../forms/NewBillboardForm";
 import NewOwnerForm from "../forms/NewOwnerForm";
+import NewBillboardFormCopy from "../forms/NewBillboardForm copy";
 
 const OwnerDashboardPage: React.FC = () => {
   // TODO: Implement dashboard functionality
@@ -11,7 +12,8 @@ const OwnerDashboardPage: React.FC = () => {
       <div className="flex justify-center gap-4 ">
         <div className="m-4 p-8">
           {/* <NewBillboardForm /> */}
-          <NewOwnerForm />
+          {/* <NewOwnerForm /> */}
+          <NewBillboardFormCopy />
         </div>
       </div>
       {/* TODO: Add dashboard content */}

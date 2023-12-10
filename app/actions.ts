@@ -2,15 +2,50 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { z } from "zod";
+import type { OwnerData } from "../types";
 
-type OwnerData = {
-  name: string;
-  email: string;
-};
 export async function createBillboard(previousState: any, formData: FormData) {
+  const BillboardDataSchema = z.object({
+    billboardName: z.string().optional(),
+    market: z.string().optional(),
+    vendor: z.string().optional(),
+    mediaType: z.string().optional(),
+    unitNumber: z.string().optional(),
+    tabId: z.string().optional(),
+    numberOfUnits: z.number().optional(),
+    description: z.string().optional(),
+    face: z.string().optional(),
+    size: z.string().optional(),
+    pixels: z.string().optional(),
+    illuminated: z.boolean().optional(),
+    weeklyEOIs: z.number().optional(),
+    fourWeekImp: z.number().optional(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    availableTiming: z.string().optional(),
+    fourWeekRateCard: z.number().optional(),
+    fourWeekNegotiatedCost: z.number().optional(),
+    installsIncluded: z.number().optional(),
+    additionalInstallCost: z.number().optional(),
+    productionCost: z.number().optional(),
+    shippingAddress: z.string().optional(),
+    artworkDeadline: z.date().optional(),
+    ownerId: z.number(),
+  });
+  const objectFromFormData = (formData: FormData) => {
+    return Object.fromEntries(formData.entries());
+  };
+  const data = objectFromFormData(formData);
+  console.log(typeof data.ownerId);
   try {
-    const billboard = await prisma.billboard.create({
-      data: formData,
+    if (typeof data.ownerId !== "number") {
+      data.ownerId = 14;
+    }
+
+    const parsedData = BillboardDataSchema.parse(data);
+
+    const billboard = await prisma.bridgeBillboard.create({
+      data: parsedData,
     });
     revalidatePath("/");
     return billboard;
@@ -21,20 +56,12 @@ export async function createBillboard(previousState: any, formData: FormData) {
 }
 
 export async function createOwner(previousState: any, formData: FormData) {
-  //   const formDataEntries = formData.entries();
   const objectFromFormData = (formData: FormData) => {
-    const data: Partial<OwnerData> = {};
-    formData.forEach((value, key) => {
-      if (key === "name" || key === "email") {
-        data[key as keyof OwnerData] = value as string;
-      }
-    });
-    return data;
+    return Object.fromEntries(formData.entries());
   };
 
   const formDataObject = objectFromFormData(formData);
-  console.log("formDataEntries", formDataObject);
-  console.log("formData", formData);
+
   const schema = z.object({
     name: z.string().min(3),
     email: z.string().email(),

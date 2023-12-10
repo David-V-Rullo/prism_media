@@ -25,3 +25,7 @@ export type BillboardFormData = {
   artworkDeadline?: string;
   ownerId: number;
 };
+export type OwnerData = {
+  name: string;
+  email: string;
+};

@@ -50,8 +50,8 @@ const NewBillboardForm: React.FC = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Input
             label="Billboard Name"
-            id="name"
-            name="name"
+            id="billboardName"
+            name="billboardName"
             placeholder="Enter Billboard Name"
           />
 
