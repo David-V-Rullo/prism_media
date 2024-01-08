@@ -29,3 +29,33 @@ export type OwnerData = {
   name: string;
   email: string;
 };
+
+export type BillboardData = {
+  id: 2;
+  billboardName: string;
+  market: string;
+  vendor: string;
+  mediaType: string;
+  unitNumber: string;
+  tabId: null | number;
+  description: string;
+  face: string;
+  sizeX: string;
+  sizeY: string;
+  pixels: string | null;
+  illuminated: null | boolean;
+  weeklyEOIs: null | number;
+  fourWeekImp: null | number;
+  latitude: number;
+  longitude: number;
+  availableTiming: string;
+  fourWeekRateCard: null | string;
+  fourWeekNegotiatedCost: null | string;
+  installsIncluded: null | string;
+  additionalInstallCost: null | string;
+  productionCost: null | string;
+  shippingAddress: null | string;
+  artworkDeadline: null | string;
+  dateCreated: string;
+  ownerId: number;
+};

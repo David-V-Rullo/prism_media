@@ -1,6 +1,6 @@
 "use client";
 import { Button, Input } from "@nextui-org/react";
-import { createBillboard } from "../actions";
+import { createBillboard } from "../lib/actions";
 import { useFormState } from "react-dom";
 
 const initialState = { message: "" };

@@ -1,326 +1,115 @@
 "use client";
-import { Button, Input } from "@nextui-org/react";
-import { createBillboard } from "../actions";
-import { useFormState } from "react-dom";
+import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
+import { createBillboard } from "../lib/actions";
+import { useFormState, useFormStatus } from "react-dom";
+import { useState } from "react";
+import Link from "next/link";
 
 const initialState = { message: "" };
 
 const NewBillboardForm: React.FC = () => {
+  const [mediaValue, setMediaValue] = useState("");
   const [state, formAction] = useFormState(createBillboard, initialState);
-  // const [formData, setFormData] = useState<BillboardFormData>({
-  //   billboardName: "Placeholder Name",
-  //   market: "Placeholder Market",
-  //   vendor: "Placeholder Vendor",
-  //   mediaType: "Placeholder Media Type",
-  //   unitNumber: "Placeholder Unit Number",
-  //   tabId: "Placeholder Tab ID",
-  //   numberOfUnits: 1,
-  //   description: "Placeholder Description",
-  //   face: "Placeholder Face",
-  //   size: "Placeholder Size",
-  //   pixels: "Placeholder Pixels",
-  //   illuminated: false,
-  //   weeklyEOIs: 1,
-  //   fourWeekImp: 1,
-  //   latitude: 0,
-  //   longitude: 0,
-  //   fourWeekRateCard: 1,
-  //   fourWeekNegotiatedCost: 1,
-  //   ownerId: 1,
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value, type, checked } = e.target;
-  //   const newValue = type === "checkbox" ? checked : value;
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: newValue,
-  //   }));
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log(formData);
-  //   // Handle form submission logic here
-  // };
-
+  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setMediaValue(e.target.value);
+  };
+  const { pending } = useFormStatus();
   return (
-    <form action={formAction} className="space-y-4">
-      <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Input
-            label="Billboard Name"
-            id="billboardName"
-            name="billboardName"
-            placeholder="Enter Billboard Name"
-          />
+    <div>
+      <form action={formAction} className="space-y-4">
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Input
+              label="Billboard Name"
+              id="billboardName"
+              name="billboardName"
+              placeholder="Enter Billboard Name"
+            />
 
-          <Input
-            label="Market"
-            id="market"
-            name="market"
-            placeholder="Enter Market"
-          />
+            <Input
+              label="Market"
+              id="market"
+              name="market"
+              placeholder="Enter Market"
+            />
 
-          <Input
-            label="Vendor"
-            id="vendor"
-            name="vendor"
-            placeholder="Enter Vendor"
-          />
+            <Input
+              label="Vendor"
+              id="vendor"
+              name="vendor"
+              placeholder="Enter Vendor"
+            />
+            <Select
+              isRequired
+              name="mediaType"
+              label="Media Type"
+              placeholder="Select a Media Type"
+              onChange={handleSelectionChange}
+            >
+              <SelectItem key="digital" value="digital">
+                Digital
+              </SelectItem>
+              <SelectItem key="static" value="static">
+                Static
+              </SelectItem>
+              <SelectItem key="other" value="other">
+                Other
+              </SelectItem>
+            </Select>
 
-          {/* This might need to be a dropdown */}
-          <Input
-            label="Media Type"
-            id="mediaType"
-            name="mediaType"
-            placeholder="Should this be a dropdown?"
-          />
+            <Input
+              label="Unit Number"
+              id="unitNumber"
+              name="unitNumber"
+              placeholder="Enter Unit Number"
+            />
 
-          <Input
-            label="Unit Number"
-            id="unitNumber"
-            name="unitNumber"
-            placeholder="Enter Unit Number"
-          />
+            <div className="flex gap-2">
+              <Input label="Latitude" id="x" name="latitude" />
+              <Input label="Longitude" id="y" name="longitude" />
+              <Input
+                label="Face"
+                id="face"
+                name="face"
+                placeholder="This can probably be a little box"
+              />
+            </div>
 
-          <Input
-            label="Tab ID"
-            id="tabId"
-            name="tabId"
-            placeholder="What the hell is a Tab ID?"
-          />
-
-          <Input
-            label="Number of Units"
-            id="numberOfUnits"
-            name="numberOfUnits"
-            placeholder="Enter Number of Units"
-          />
-
-          <Input
-            label="Description"
-            id="description"
-            name="description"
-            placeholder="Move this somewhere it can be a big text area"
-          />
-
-          <Input
-            label="Face"
-            id="face"
-            name="face"
-            placeholder="This can probably be a little box"
-          />
-
-          <Input
-            label="Size"
-            id="size"
-            name="size"
-            placeholder="This should be two  properly labeled input boxes with an 'x' inbetween for proper formatting."
-          />
-
-          <Input
-            label="Pixels"
-            id="pixels"
-            name="pixels"
-            placeholder="This should be a dropdown with accepted pixel counts, also surfaced to compare to client upload size"
-          />
+            <div className="flex gap-2">
+              <Input label="Width" id="x" name="sizeX" />
+              <Input label="Height" id="y" name="sizeY" />
+            </div>
+            <Input
+              label="Pixels"
+              id="pixels"
+              name="pixels"
+              placeholder="This should be a dropdown with accepted pixel counts, also surfaced to compare to client upload size"
+            />
+            <Textarea
+              label="Description"
+              id="description"
+              name="description"
+              minRows={3}
+            />
+          </div>
         </div>
-      </div>
-      {/* </div>
-      <div>
-        <label
-          htmlFor="illuminated"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Illuminated
-        </label>
-        <input
-          type="checkbox"
-          name="illuminated"
-          id="illuminated"
-          className="mt-1"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="weeklyEOIs"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Weekly EOI's
-        </label>
-        <input
-          type="text"
-          name="weeklyEOIs"
-          id="weeklyEOIs"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="Four Week IMP"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Four Week IMP
-        </label>
-        <input
-          type="text"
-          name="Four Week IMP"
-          id="Four Week IMP"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="latitude"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Lat
-        </label>
-        <input
-          type="text"
-          name="latitude"
-          id="latitude"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Long
-        </label>
-        <input
-          type="text"
-          name="longitude"
-          id="longitude"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Available Timing
-        </label>
-        <input
-          type="text"
-          name="availableTiming"
-          id="availableTiming"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Four Week Rate Card
-        </label>
-        <input
-          type="text"
-          name="fourWeekRateCard"
-          id="fourWeekRateCard"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Four Week Neogtiated Cost
-        </label>
-        <input
-          type="text"
-          name="fourWeekNegotiatedCost"
-          id="fourWeekNegotiatedCost"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Number of Installs Included
-        </label>
-        <input
-          type="text"
-          name="installsIncluded"
-          id="installsIncluded"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Additional Install Cost
-        </label>
-        <input
-          type="text"
-          name="additionalInstallCost"
-          id="additionalInstallCost"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Production Cost
-        </label>
-        <input
-          type="text"
-          name="productionCost"
-          id="productionCost"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Shipping Address
-        </label>
-        <input
-          type="text"
-          name="shippingAddress"
-          id="shippingAddress"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="market"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Artwork Deadline
-        </label>
-        <input
-          type="text"
-          name="artworkDeadline"
-          id="artworkDeadline"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div> */}
+        <div className="flex justify-start gap-4">
+          {pending ? (
+            <Button type="submit" color="primary" isLoading>
+              Submit{" "}
+            </Button>
+          ) : (
+            <Button type="submit" color="primary">
+              Submit{" "}
+            </Button>
+          )}
 
-      {/* Submit Button */}
-      <div>
-        <Button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Submit{" "}
-        </Button>
-      </div>
-    </form>
+          <Button color="danger" variant="faded">
+            <Link href="/owners">Cancel</Link>
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 

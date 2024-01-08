@@ -1,8 +1,18 @@
 import { Divider } from "@nextui-org/react";
 import BillboardCard from "./components/BillboardCard";
 import SearchBar from "./components/SearchBar";
+import prisma from "./lib/db";
+import { Suspense } from "react";
 
-export default function Home() {
+export async function getBillboards() {
+  const billboards = await prisma.billboard.findMany();
+  return billboards;
+}
+export default async function Home() {
+  const billboards = await getBillboards().then((billboards) => {
+    return billboards;
+  });
+  console.log(billboards);
   return (
     <main className="flex min-h-screen flex-col items-center p-2">
       <div className="p-6"></div>
@@ -13,27 +23,17 @@ export default function Home() {
       <div className="flex flex-col justify-center my-8">
         <Divider />
       </div>
-      <div className="flex justify-start gap-5">
-        <BillboardCard
-          title="Super Billboard"
-          chipType="Digital"
-          image="DALL·E 2023-11-06 19.58.15 - Visualize a photo-realistic image from the perspective of a driver on a road, looking up at a large billboard advertising a plumbing service. The bill.png"
-        />
-        <BillboardCard
-          title="Decent Billboard"
-          chipType="Static"
-          image="DALL·E 2023-11-06 19.56.33 - Create an image of a towering billboard from the perspective of a person at street level. The billboard features a fictional superhero standing with a.png"
-        />
-        <BillboardCard
-          title="Spectacular Billboard"
-          chipType="Static"
-          image="DALL·E 2023-11-06 19.58.18 - Visualize a photo-realistic image from the perspective of a driver on a road, looking up at a large billboard advertising a plumbing service. The bill.png"
-        />
-        <BillboardCard
-          title="Good Billboard"
-          chipType="Digital"
-          image="DALL·E 2023-11-06 19.56.21 - Create an image of a towering billboard from the perspective of a person at street level. The billboard features a fictional superhero standing with a.png"
-        />
+      <div className="flex flex-col justify-center m-8 px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {
+            billboards &&
+              // <Suspense fallback={<div>Loading...</div>}>
+              billboards.map((billboard) => (
+                <BillboardCard key={billboard.id} billboard={billboard} />
+              ))
+            // </Suspense>
+          }
+        </div>
       </div>
     </main>
   );

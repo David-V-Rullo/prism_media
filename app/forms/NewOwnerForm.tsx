@@ -1,7 +1,7 @@
 "use client";
 import { Button, Input } from "@nextui-org/react";
 import { useFormState } from "react-dom";
-import { createOwner } from "../actions";
+import { createOwner } from "../lib/actions";
 const initialState = {};
 const NewOwnerForm = () => {
   const [formState, formAction] = useFormState(createOwner, initialState);

@@ -1,22 +1,34 @@
 import React from "react";
-import NewBillboardForm from "../forms/NewBillboardForm";
-import NewOwnerForm from "../forms/NewOwnerForm";
-import NewBillboardFormCopy from "../forms/NewBillboardForm copy";
-
-const OwnerDashboardPage: React.FC = () => {
-  // TODO: Implement dashboard functionality
+import prisma from "../lib/db";
+import BillboardCard from "../components/BillboardCard";
+import Link from "next/link";
+export async function getBillboards(id: number) {
+  const billboards = await prisma.billboard.findMany({
+    where: { ownerId: id },
+  });
+  return billboards;
+}
+const OwnerDashboardPage: React.FC = async () => {
+  const billboards = await getBillboards(14).then((billboards) => {
+    console.log(billboards);
+    return billboards;
+  });
 
   return (
     <div className="flex flex-col p-8">
-      <h1>Owner Dashboard</h1>
       <div className="flex justify-center gap-4 ">
-        <div className="m-4 p-8">
-          {/* <NewBillboardForm /> */}
-          {/* <NewOwnerForm /> */}
-          <NewBillboardFormCopy />
+        <div className="flex flex-col gap-4 items-center p-8">
+          <Link href="/owners/newBillboard">Add New Billboard</Link>
+          <div>Item</div>
+          <div>Item</div>
+          <div>Item</div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {billboards.map((billboard) => (
+            <BillboardCard key={billboard.id} billboard={billboard} />
+          ))}
         </div>
       </div>
-      {/* TODO: Add dashboard content */}
     </div>
   );
 };

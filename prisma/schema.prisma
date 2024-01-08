@@ -17,55 +17,45 @@ model User {
 }
 
 model Billboard {
-  id                     Int      @id @default(autoincrement())
-  billboardName          String
-  market                 String
-  vendor                 String
+  id                     Int       @id @default(autoincrement())
+  billboardName          String    @db.LongText
+  market                 String?
+  vendor                 String?
   mediaType              String
-  unitNumber             String
-  tabId                  String
-  numberOfUnits          Int
-  description            String
+  unitNumber             String?
+  tabId                  String?
+  description            String    @db.LongText
   face                   String
-  size                   String
-  pixels                 String
-  illuminated            Boolean
-  weeklyEOIs             Int      @map("A18+ WEEKLY EOI'S")
-  fourWeekImp            Int      @map("4 week IMP")
+  sizeX                  String
+  sizeY                  String
+  pixels                 String?
+  illuminated            Boolean?
+  weeklyEOIs             Int?      @map("A18+ WEEKLY EOI'S")
+  fourWeekImp            Int?      @map("4 week IMP")
   latitude               Float
   longitude              Float
-  availableTiming        String
-  fourWeekRateCard       Int      @map("4-Week Rate Card")
-  fourWeekNegotiatedCost Int      @map("4-Week Negotiated Cost")
-  installsIncluded       Int      @map("# of Installs Included")
-  additionalInstallCost  Int      @map("Cost per Additional Installations")
-  productionCost         Int      @map("Production Cost (1x - if forced)")
-  shippingAddress        String
-  artworkDeadline        DateTime
+  availableTiming        DateTime? @default(now())
+  fourWeekRateCard       String?   @map("4-Week Rate Card")
+  fourWeekNegotiatedCost Float?    @map("4-Week Negotiated Cost")
+  installsIncluded       Int?      @map("# of Installs Included")
+  additionalInstallCost  Float?    @map("Cost per Additional Installations")
+  productionCost         Float?    @map("Production Cost (1x - if forced)")
+  shippingAddress        String?
+  artworkDeadline        DateTime?
+  dateCreated            DateTime  @default(now())
   ownerId                Int
-  owner                  Owner    @relation(fields: [ownerId], references: [id])
-
-  @@index([ownerId])
-}
-
-model BridgeBillboard {
-  id            Int      @id @default(autoincrement())
-  billboardName String
-  market        String
-  vendor        String
-  mediaType     String
-  size          String
-  createdAt     DateTime @default(now())
-  ownerId       Int
-  owner         Owner    @relation(fields: [ownerId], references: [id])
+  owner                  Owner     @relation(fields: [ownerId], references: [id])
 
   @@index([ownerId])
 }
 
 model Owner {
-  id              Int               @id @default(autoincrement())
-  name            String
-  email           String
-  billboards      Billboard[]
-  BridgeBillboard BridgeBillboard[]
+  id         Int         @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  address    String?
+  billboards Billboard[]
 }
